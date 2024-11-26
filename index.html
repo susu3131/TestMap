@@ -37,13 +37,13 @@
 
     <!-- 11111111 -->
     <div id="MRT-Wheel1" class="hidden w-[1200px] h-[600px] overflow-hidden border-4">
-      <img id="MRT1" class="w-[1200px] h-[600px] overflow-hidden relative" src="/assets/Group1.jpg" alt="" />
+      <img id="MRT1" class="w-[1200px] h-[600px] overflow-hidden relative" src="assets/Group1.jpg" alt="" />
     </div>
 
     <!-- 2222222222222222222 -->
     <div id="MRT-Wheel2" class="hidden w-[1340px] h-[840px] overflow-hidden border-4">
       <!-- 捷運背景底圖 -->
-      <div id="MRT2" class="image-container duration-500 relative w-[1300px] h-[800px] bg-[url('/assets/Group1.jpg')] bg-cover">
+      <div id="MRT2" class="image-container duration-500 relative w-[1300px] h-[800px] bg-[url('assets/Group1.jpg')] bg-cover">
         <!-- 淡水 -->
         <div id="Tamsui2" class="absolute left-[90px] hover:bg-slate-500 opacity-10 w-[680px] h-[190px]"></div>
       </div>
@@ -52,147 +52,9 @@
     <!-- 3333333333333333333333333333 -->
     <div id="MRT-Wheel3" class="hidden w-[1340px] h-[840px] overflow-hidden border-4 relative">
       <!-- 捷運背景底圖 -->
-      <img id="MRT3" class="w-[1340px] h-[840px] overflow-hidden relative" src="/assets/Group1.jpg" alt="" />
+      <img id="MRT3" class="w-[1340px] h-[840px] overflow-hidden relative" src="assets/Group1.jpg" alt="" />
       <!-- 淡水 -->
       <div id="Tamsui3" class="absolute top-0 left-[90px] bg-slate-500 opacity-10 w-[680px] h-[190px]"></div>
     </div>
-
-    <script>
-      $(document).ready(function () {
-        let scale = 1;
-        let zoomStep = 0.1;
-
-        //11111111111111111111111111111111111
-        //滾動
-        $("#MRT-Wheel1").on("wheel", function (event) {
-          event.preventDefault();
-
-          //調整縮小放大
-          if (event.originalEvent.deltaY < 0) {
-            scale += zoomStep;
-          } else {
-            scale -= zoomStep;
-          }
-
-          // 限制縮放比例
-          scale = Math.max(0.5, Math.min(2, scale)); // 限制缩放范围为 0.5 到 2 倍
-
-          // 更新背景的缩放
-          $("#MRT1").css("transform", "scale(" + scale + ")");
-        });
-
-        //拖拉
-        $("#MRT1").on("mousedown", function (event) {
-          event.preventDefault();
-          // 記錄按下時間
-          let pressStartTime = Date.now();
-          // 設定長按時間 (500 毫秒)
-          let pressDuration = 500;
-
-          //座標
-          let startX = event.clientX;
-          let startY = event.clientY;
-          let offsetX = $(this).offset().left;
-          let offsetY = $(this).offset().top;
-
-          //滑鼠移動
-          $(document).on("mousemove", function (event) {
-            let newLeft = offsetX + event.clientX - startX;
-            let newTop = offsetY + event.clientY - startY;
-            // 更新位置
-            $("#MRT1").css({
-              left: newLeft + "px",
-              top: newTop + "px",
-            });
-          });
-
-          // 停止拖動
-          $(document).on("mouseup", function () {
-            console.log("放開");
-            // 移除拖動和停止事件
-            $(document).off("mousemove mouseup");
-          });
-        });
-
-        //22222222222222222222222222222222222222222
-        $("#MRT-Wheel2").on("wheel", function (event) {
-          event.preventDefault();
-        });
-        //區域放大縮小
-        $("#Tamsui2").on("click", function () {
-          event.stopPropagation();
-          $("#MRT2").css("transform", "scale(1.8) translate(200px, 300px)");
-        });
-
-        $(document).on("click", function () {
-          $("#MRT2").css("transform", "scale(1) translate(0px, 0px)");
-        });
-
-        //333333333333333333333333333333333333333333
-        // 監聽滾動事件
-        $("#MRT-Wheel3").on("wheel", function (event) {
-          event.preventDefault();
-
-          //調整縮小放大
-          if (event.originalEvent.deltaY < 0) {
-            scale += zoomStep;
-          } else {
-            scale -= zoomStep;
-          }
-
-          // 限制縮放比例
-          scale = Math.max(0.5, Math.min(2, scale)); // 限制缩放范围为 0.5 到 2 倍
-
-          // 更新背景的缩放
-          $("#MRT3").css("transform", "scale(" + scale + ")");
-          $("#Tamsui3").css("transform", "scale(" + scale + ")");
-        });
-
-        //拖拉
-        $("#MRT3").on("mousedown", function (event) {
-          event.preventDefault();
-          console.log("按下");
-          //座標
-          let startX = event.clientX;
-          let startY = event.clientY;
-          let offsetX = $(this).offset().left;
-          let offsetY = $(this).offset().top;
-
-          //滑鼠移動
-          $(document).on("mousemove", function (event) {
-            let newLeft = offsetX + event.clientX - startX;
-            let newTop = offsetY + event.clientY - startY;
-            // 更新位置
-            $("#MRT3").css({
-              left: newLeft + "px",
-              top: newTop + "px",
-            });
-            $("#Tamsui3").css({
-              left: newLeft + "px",
-              top: newTop + "px",
-            });
-          });
-
-          // 停止拖動
-          $(document).on("mouseup", function () {
-            console.log("放開");
-            // 移除拖動和停止事件
-            $(document).off("mousemove mouseup");
-          });
-        });
-
-        //區域放大縮小
-        $("#Tamsui3").on("click", function () {
-          event.stopPropagation();
-          $("#MRT3").css("transform", "scale(1.8) translate(200px, 300px)");
-          $("#Tamsui3").css("transform", "scale(1.8) translate(200px, 300px)");
-        });
-        $(document).on("click", function () {
-          console.log("點其他的");
-          $("#MRT3").css("transform", "scale(1) translate(0px, 0px)");
-          $("#Tamsui3").css("transform", "scale(1) translate(0px, 0px)");
-        });
-      });
-    </script>
   </body>
 </html>
